@@ -1,0 +1,19 @@
+[
+{
+  "modid": "wailainhib",
+  "name": "Waila Inhibitors",
+  "description": "Restricts the capabilities of the Waila HUD by factoring in things like blindness, confusion and darkness.",
+  "version": "1.1.0",
+  "credits": "Maintained by Darkhax.",
+  "logoFile": "",
+  "mcversion": "1.7.10",
+  "url": "http://www.darkhax.net",
+  "updateUrl": "",
+  "authors": ["Darkhax"],
+  "parent": "",
+  "screenshots": [],
+  "dependencies": [
+     "mod_MinecraftForge"
+  ]
+}
+]

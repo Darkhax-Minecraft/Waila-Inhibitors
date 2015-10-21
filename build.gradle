@@ -22,7 +22,7 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "1.0.0"
+version = "1.1.0"
 group = "net.darkhax.wailainhib"
 archivesBaseName = "Waila-Inhibitors"
 
@@ -64,7 +64,7 @@ repositories {
 dependencies {
 
     compile "mcp.mobius.waila:Waila:1.5.10_1.7.10"
-    compile "libs/Waila-Events.jar"
+    compile files('build/depends/Waila-Events.jar')
 }
 
 jar {
