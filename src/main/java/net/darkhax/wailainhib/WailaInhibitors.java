@@ -8,7 +8,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import net.darkhax.wailainhib.common.CommonProxy;
 import net.darkhax.wailainhib.handler.ConfigurationHandler;
 
-@Mod(modid = "wailainhib", name = "Waila Inhibitors", version = "1.0.0", guiFactory = "net.darkhax.wailainhib.client.gui.GuiFactoryWailaInhib", dependencies = "required-after:Waila;after:wailaevents")
+@Mod(modid = "wailainhib", name = "Waila Inhibitors", version = "1.1.0", dependencies = "required-after:Waila;required-after:wailaevents")
 public class WailaInhibitors {
     
     @SidedProxy(serverSide = "net.darkhax.wailainhib.common.CommonProxy", clientSide = "net.darkhax.wailainhib.client.ClientProxy")

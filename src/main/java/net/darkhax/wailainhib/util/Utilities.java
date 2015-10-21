@@ -1,30 +1,46 @@
 package net.darkhax.wailainhib.util;
 
+import java.util.Random;
+
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.Chunk;
 
 public class Utilities {
     
+    public static final Random RND = new Random();
+    
     public static int getBlockLightLevel (World world, int x, int y, int z, boolean day) {
         
-        return day ? world.func_72964_e(x >> 4, z >> 4).func_76629_c(x & 0xF, y + 1, z & 0xF, 0) : world.func_72964_e(x >> 4, z >> 4).func_76629_c(x & 0xF, y + 1, z & 0xF, 16);
+        return day ? world.getChunkFromChunkCoords(x >> 4, z >> 4).getBlockLightValue(x & 0xF, y, z & 0xF, 0) : world.getChunkFromChunkCoords(x >> 4, z >> 4).getBlockLightValue(x & 0xF, y, z & 0xF, 16);
     }
     
     public static boolean canPlayerSleep (EntityPlayer player) {
         
-        return (!player.func_70608_bn()) && (player.func_70089_S()) && (player.field_70170_p.func_72820_D() > 12541L) && (player.field_70170_p.func_72820_D() < 23458L);
+        return (!player.isPlayerSleeping()) && (player.isEntityAlive()) && (player.worldObj.getWorldTime() > 12541L) && (player.worldObj.getWorldTime() < 23458L);
     }
     
     public static boolean isPlayerInSun (EntityPlayer player) {
         
         boolean isSkylight = true;
-        for (int y = (int) player.field_70163_u; y < 257; y++) {
-            isSkylight = player.field_70170_p.func_147437_c((int) player.field_70165_t, y, (int) player.field_70161_v);
-            if (!isSkylight) {
+        
+        for (int y = (int) player.posY; y < 256; y++) {
+            
+            isSkylight = player.worldObj.isAirBlock((int) player.posX, y, (int) player.posZ);
+            
+            if (!isSkylight)
                 break;
-            }
         }
+        
         return isSkylight;
+    }
+    
+    public static MovingObjectPosition rayTrace (EntityPlayer player, double length) {
+        
+        Vec3 vec1 = Vec3.createVectorHelper(player.posX, player.posY + player.getEyeHeight(), player.posZ);
+        Vec3 vec2 = player.getLookVec();
+        Vec3 vec3 = vec1.addVector(vec2.xCoord * length, vec2.yCoord * length, vec2.zCoord * length);
+        return player.worldObj.rayTraceBlocks(vec1, vec3);
     }
 }

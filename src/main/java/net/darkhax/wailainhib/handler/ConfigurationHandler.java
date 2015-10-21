@@ -2,9 +2,6 @@ package net.darkhax.wailainhib.handler;
 
 import java.io.File;
 
-import cpw.mods.fml.client.event.ConfigChangedEvent;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.common.config.Configuration;
 
 public class ConfigurationHandler {
@@ -23,16 +20,7 @@ public class ConfigurationHandler {
     public ConfigurationHandler(File file) {
         
         config = new Configuration(file);
-        FMLCommonHandler.instance().bus().register(this);
         syncConfigData();
-    }
-    
-    @SubscribeEvent
-    public void onConfigChange (ConfigChangedEvent.OnConfigChangedEvent event) {
-        
-        if (event.modID.equals("wailainhib")) {
-            syncConfigData();
-        }
     }
     
     private void syncConfigData () {
@@ -45,8 +33,7 @@ public class ConfigurationHandler {
         fakeBlocks = config.getStringList("fakeBlocks", "general", fakeBlocks, "A list of ids for fake blocks. These will randomly override blocks in the HUD if a player has confusion.");
         fakeMobs = config.getStringList("fakeMobs", "general", fakeMobs, "A list of fake mobs that will randomly override a mob within the HUD when the player is confused.");
         
-        if (config.hasChanged()) {
+        if (config.hasChanged())
             config.save();
-        }
     }
 }
