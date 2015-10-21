@@ -15,20 +15,19 @@ public class WailaRenderingHandler {
     public void onWailaPreRender (WailaRenderEvent.Pre event) {
         
         EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+        int goodX = MathHelper.floor_double(player.posX);
+        int goodY = MathHelper.floor_double(player.posY);
+        int goodZ = MathHelper.floor_double(player.posZ);
         
         if ((ConfigurationHandler.factorBlindness) && (player.isPotionActive(Potion.blindness)))
             event.setCanceled(true);
             
-        if ((ConfigurationHandler.factorDaylight) && (Utilities.isPlayerInSun(player)) && (!Utilities.canPlayerSleep(player)))
+        if ((ConfigurationHandler.factorDaylight) && Utilities.isPlayerInSun(player.worldObj, goodX, goodY, goodZ) && (!Utilities.canPlayerSleep(player)))
             return;
             
         if ((ConfigurationHandler.factorDarkness)) {
             
-            int goodX = MathHelper.floor_double(player.posX);
-            int goodY = MathHelper.floor_double(player.posY);
-            int goodZ = MathHelper.floor_double(player.posZ);
-            
-            if (Utilities.getBlockLightLevel(player.worldObj, goodX, goodY, goodZ, false) < ConfigurationHandler.lightThreshold)
+            if (goodY > 0 && goodY < 256 && Utilities.getBlockLightLevel(player.worldObj, goodX, goodY, goodZ, false) < ConfigurationHandler.lightThreshold)
                 event.setCanceled(true);
         }
     }

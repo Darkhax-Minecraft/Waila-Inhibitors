@@ -3,8 +3,6 @@ package net.darkhax.wailainhib.util;
 import java.util.Random;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 public class Utilities {
@@ -21,26 +19,12 @@ public class Utilities {
         return (!player.isPlayerSleeping()) && (player.isEntityAlive()) && (player.worldObj.getWorldTime() > 12541L) && (player.worldObj.getWorldTime() < 23458L);
     }
     
-    public static boolean isPlayerInSun (EntityPlayer player) {
+    public static boolean isPlayerInSun (World world, int x, int y, int z) {
         
-        boolean isSkylight = true;
-        
-        for (int y = (int) player.posY; y < 256; y++) {
-            
-            isSkylight = player.worldObj.isAirBlock((int) player.posX, y, (int) player.posZ);
-            
-            if (!isSkylight)
-                break;
-        }
-        
-        return isSkylight;
-    }
-    
-    public static MovingObjectPosition rayTrace (EntityPlayer player, double length) {
-        
-        Vec3 vec1 = Vec3.createVectorHelper(player.posX, player.posY + player.getEyeHeight(), player.posZ);
-        Vec3 vec2 = player.getLookVec();
-        Vec3 vec3 = vec1.addVector(vec2.xCoord * length, vec2.yCoord * length, vec2.zCoord * length);
-        return player.worldObj.rayTraceBlocks(vec1, vec3);
+        for (int pos = y; pos < 256; pos++)
+            if (!world.isAirBlock(x, pos, z) || world.getBlock(x, pos, z).getMaterial().isSolid())
+                return false;
+                
+        return true;
     }
 }
