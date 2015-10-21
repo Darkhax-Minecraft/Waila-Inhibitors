@@ -7,6 +7,7 @@ import net.darkhax.wailainhib.util.Utilities;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
+import net.minecraft.util.MathHelper;
 
 public class WailaRenderingHandler {
     
@@ -23,7 +24,12 @@ public class WailaRenderingHandler {
             
         if ((ConfigurationHandler.factorDarkness)) {
             
-            // TODO fix light code
+            int goodX = MathHelper.floor_double(player.posX);
+            int goodY = MathHelper.floor_double(player.posY);
+            int goodZ = MathHelper.floor_double(player.posZ);
+            
+            if (Utilities.getBlockLightLevel(player.worldObj, goodX, goodY, goodZ, false) < ConfigurationHandler.lightThreshold)
+                event.setCanceled(true);
         }
     }
 }
