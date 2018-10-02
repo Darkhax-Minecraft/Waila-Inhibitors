@@ -28,12 +28,9 @@ archivesBaseName = "Waila-Inhibitors"
 
 minecraft {
 
-    version = "1.7.10-10.13.3.1420-1.7.10"
-    runDir = "eclipse"
-}
-
-dependencies {
-
+    version = "1.7.10-10.13.4.1614-1.7.10"
+	mappings = "stable_12"
+    runDir = "run"
 }
 
 processResources {
@@ -60,11 +57,16 @@ repositories {
         name 'CB Repo'
         url "http://chickenbones.net/maven/"
     }
+    maven {
+        name = "CurseForge"
+        url = "https://minecraft.curseforge.com/api/maven/"
+    }
 }
+
 dependencies {
 
-    compile "mcp.mobius.waila:Waila:1.5.10_1.7.10"
-    compile files('build/depends/Waila-Events.jar')
+    compile "mcp.mobius.waila:Waila:1.5.10_1.7.10:dev"
+    compile 'waila-events:WailaEvents:1.0.0:dev'
 }
 
 jar {
